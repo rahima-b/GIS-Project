@@ -1,0 +1,378 @@
+---
+title: "Humpback code"
+author: "Rahima Baboo"
+format: html
+editor: source
+---
+
+Clear my workspace
+
+rm(list=ls())
+
+Get working directory
+
+getwd()
+
+---
+
+#Installing packages for data visualisation
+
+```{r}
+install.packages(c("tidyverse", "sf", "lwgeom", "terra", "stars", "exactextractr"))
+
+install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth", "mapview", "tmap"))
+
+```
+
+---
+
+#2020
+
+##create 2 maps, one with just sampling map and the other with sample map and spatial distr.
+##then interpret on the trends of those graphs
+
+install.packages("tidyverse")  # for data manipulation and visualization
+install.packages("sf")        # for handling geographic data
+install.packages("raster")    # for working with raster data
+install.packages("leaflet")   # for interactive maps (optional)
+
+## Load the packages
+library(tidyverse)
+library(sf)
+library(raster)
+library(leaflet)
+library(dplyr)
+
+##Reading and tidying data
+
+```{r}
+humpback_data_2020 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+
+#Create a data frame
+humpback_data_2020 <- as.data.frame(humpback_data_2020)
+
+# Remove columns 15 to 20
+
+humpback_data_2020 <- dplyr::select(humpback_data_2020, -c(14:19))
+
+#select only 2020 data from this code
+humpback_data_2020 <- humpback_data_2020 %>%
+  filter(year == 2020, month %in% c(1, 2, 3, 11, 12))
+
+#remove duplicate rows based on all columns
+humpback_data_2020 <- humpback_data_2020 %>%
+  distinct()
+
+```
+
+## Reading in my shape file
+
+```{r}
+humpback.map <- st_read("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/ne_50m_ocean.shp")  
+
+colnames(humpback.map)
+
+```
+
+## Checking crs
+
+```{r}
+
+class(humpback.map)
+
+head(humpback.map)
+
+humpback.map
+
+st_crs(humpback.map)
+
+```
+##write data with sf
+
+```{r}
+st_write(humpback.map, "C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/ne_50m_ocean.shp", append = FALSE)
+
+```
+##check if the file exists
+
+```{r}
+
+file.exists("C:\\Users\\Rahima\\OneDrive - University of Cape Town\\Documents\\Rahima postgrad\\GIT repos\\GIS-Project\\ne_50m_ocean.shp")
+
+```
+
+## Plot map
+
+```{r}
+                             
+plot(st_geometry(humpback.map), axes = TRUE)
+
+```
+##Determining how many categories there are in each column
+
+```{r}
+
+unique(humpback.map$featurecla)
+unique(humpback.map$scalerank)
+unique(humpback.map$Ocean)
+
+```
+
+##Calling ggplot to fill in the map
+
+```{r}
+library(tidyverse) #calls ggplot2 and other Tidyverse packages together
+
+ggplot() +
+  geom_sf(data=humpback.map, aes(fill = `featurecla`))+  # Fill by featurecla column
+  scale_fill_manual(values = c("Ocean" = "lightblue")) +   # Color for Ocean
+  theme_minimal() +  # Optional: Apply a minimal theme for a cleaner look
+  labs(title = "Humpback whale sightings 2020")
+
+```
+##Converting data to spatial objects
+
+```{r}
+humpback_sf <- st_as_sf(humpback_data_2020, coords = c("Longitude", "Latitude"), crs = 4326)
+
+```
+
+##Plotting the points on top of the background map
+
+```{r}
+
+# Plot the background map
+plot(st_geometry(humpback.map),col = "lightblue", axes = TRUE, main = "Humpback Whale Sightings 2020") 
+
+# Plot the humpback coordinates
+humpback_2020 <- plot(st_geometry(humpback_sf),axes = TRUE, col = "darkred", pch = 20, add = TRUE)  
+
+```
+#2021
+
+##Reading and tidying data
+
+```{r}
+humpback_data_2021 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+
+#Create a data frame
+humpback_data_2021 <- as.data.frame(humpback_data_2021)
+
+library(dplyr)
+
+# Remove columns 14 to 20
+
+humpback_data_2021 <- dplyr::select(humpback_data_2021, -c(14:19))
+
+#select only 2020 data from this code
+humpback_data_2021 <- humpback_data_2021 %>%
+  filter(year == 2021, month %in% c(1, 2, 3, 11, 12))
+
+#remove duplicate rows based on all columns
+humpback_data_2021 <- humpback_data_2021 %>%
+  distinct()
+
+```
+
+## Reading in my shape file
+
+```{r}
+humpback.map <- st_read("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/ne_50m_ocean.shp")  
+
+colnames(humpback.map)
+
+```
+
+## Checking crs
+
+```{r}
+
+class(humpback.map)
+
+head(humpback.map)
+
+humpback.map
+
+st_crs(humpback.map)
+
+```
+
+##write data with sf
+
+```{r}
+st_write(humpback.map, "C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/ne_50m_ocean.shp", append = FALSE)
+
+```
+
+##check if the file exists
+
+```{r}
+
+file.exists("C:\\Users\\Rahima\\OneDrive - University of Cape Town\\Documents\\Rahima postgrad\\GIT repos\\GIS-Project\\ne_50m_ocean.shp")
+
+```
+
+## Plot map
+
+```{r}
+                             
+plot(st_geometry(humpback.map), axes = TRUE)
+
+```
+##Determining how many categories there are in each column
+
+```{r}
+
+unique(humpback.map$featurecla)
+unique(humpback.map$scalerank)
+unique(humpback.map$Ocean)
+
+```
+
+##Calling ggplot to fill in the map
+
+```{r}
+library(tidyverse) #calls ggplot2 and other Tidyverse packages together
+
+ggplot() +
+  geom_sf(data=humpback.map, aes(fill = `featurecla`))+  # Fill by featurecla column
+  scale_fill_manual(values = c("Ocean" = "lightblue")) +   # Color for Ocean
+  theme_minimal() +  # Optional: Apply a minimal theme for a cleaner look
+  labs(title = "Humpback whale sightings 2021")
+```
+
+##Converting data to spatial objects
+
+```{r}
+humpback_sf <- st_as_sf(humpback_data_2021, coords = c("Longitude", "Latitude"), crs = 4326)
+
+```
+
+##Plotting the points on top of the background map
+
+```{r}
+
+# Plot the background map
+plot(st_geometry(humpback.map),col = "lightblue", axes = TRUE, main = "Humpback Whale Sightings 2021") 
+
+# Plot the humpback coordinates
+humpback_2021 <- plot(st_geometry(humpback_sf),axes = TRUE, col = "red", pch = 20, add = TRUE)  
+
+```
+#2022
+
+##Reading and tidying the data
+
+```{r}
+humpback_data_2022 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+
+#Create a data frame
+humpback_data_2022 <- as.data.frame(humpback_data_2022)
+
+library(dplyr)
+
+# Remove columns 14 to 20
+
+humpback_data_2022 <- dplyr::select(humpback_data_2022, -c(14:19))
+
+#select only 2020 data from this code
+humpback_data_2022 <- humpback_data_2022 %>%
+  filter(year == 2022, month %in% c(1, 2, 3, 11, 12))
+
+#remove duplicate rows based on all columns
+humpback_data_2022 <- humpback_data_2022 %>%
+  distinct()
+
+```
+
+##Calling ggplot to fill in the map
+
+```{r}
+library(tidyverse) #calls ggplot2 and other Tidyverse packages together
+
+ggplot() +
+  geom_sf(data=humpback.map, aes(fill = `featurecla`))+  # Fill by featurecla column
+  scale_fill_manual(values = c("Ocean" = "lightblue")) +   # Color for Ocean
+  theme_minimal() +  # Optional: Apply a minimal theme for a cleaner look
+  labs(title = "Humpback whale sightings 2022")
+
+```
+
+##Converting data to spatial objects
+
+```{r}
+humpback_sf <- st_as_sf(humpback_data_2022, coords = c("Longitude", "Latitude"), crs = 4326)
+
+```
+
+##Plotting the points on top of the background map
+
+```{r}
+
+# Plot the background map
+plot(st_geometry(humpback.map),col = "lightblue", axes = TRUE, main = "Humpback Whale Sightings 2022") 
+
+# Plot the humpback coordinates
+humpback_2022 <- plot(st_geometry(humpback_sf),axes = TRUE, col = "purple", pch = 20, add = TRUE)  
+
+```
+---
+#2023
+
+##Reading and tidying the data
+
+```{r}
+humpback_data_2023 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+
+#Create a data frame
+humpback_data_2023 <- as.data.frame(humpback_data_2023)
+
+library(dplyr)
+
+# Remove columns 14 to 20
+
+humpback_data_2023 <- dplyr::select(humpback_data_2023, -c(14:19))
+
+#select only 2020 data from this code
+humpback_data_2023 <- humpback_data_2023 %>%
+  filter(year == 2023, month %in% c(1, 2, 3, 11, 12))
+
+#remove duplicate rows based on all columns
+humpback_data_2023 <- humpback_data_2023 %>%
+  distinct()
+
+```
+
+##Calling ggplot to fill in the map
+
+```{r}
+library(tidyverse) #calls ggplot2 and other Tidyverse packages together
+
+ggplot() +
+  geom_sf(data=humpback.map, aes(fill = `featurecla`))+  # Fill by featurecla column
+  scale_fill_manual(values = c("Ocean" = "lightblue")) +   # Color for Ocean
+  theme_minimal() +  # Optional: Apply a minimal theme for a cleaner look
+  labs(title = "Humpback whale sightings 2023")
+
+```
+
+##Converting data to spatial objects
+
+```{r}
+humpback_sf <- st_as_sf(humpback_data_2023, coords = c("Longitude", "Latitude"), crs = 4326)
+
+```
+
+##Plotting the points on top of the background map
+
+```{r}
+
+# Plot the background map
+plot(st_geometry(humpback.map),col = "lightblue", axes = TRUE, main = "Humpback Whale Sightings 2023") 
+
+# Plot the humpback coordinates
+humpback_2023 <- plot(st_geometry(humpback_sf),axes = TRUE, col = "violetred3", pch = 20, add = TRUE)  
+
+```
+
+---
