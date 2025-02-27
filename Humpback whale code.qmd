@@ -1,0 +1,400 @@
+---
+title: "Plotting and Interactive map"
+author: "Rahima Baboo"
+format: html
+editor: source
+---
+
+Clear my workspace
+
+rm(list=ls())
+
+Get working directory
+
+getwd()
+
+---
+#Installing packages for data visualisation
+
+```{r}
+install.packages(c("tidyverse", "sf", "lwgeom", "terra", "stars", "exactextractr"))
+
+install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth", "mapview", "tmap"))
+
+install.packages("prettymapr")
+install.packages("webshot")
+
+webshot::install_phantomjs()
+
+```
+
+---
+
+# Calling libraries
+
+library(tidyverse)
+library(sf)
+library(leaflet)
+library(dplyr)
+library(leaflet)
+library(htmltools)
+library(prettymapr)
+library(rosm)
+library(ggspatial)
+
+---
+
+#2020
+
+##Reading and tidying data
+
+```{r}
+humpback_data_2020 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+
+#Create a data frame
+humpback_data_2020 <- as.data.frame(humpback_data_2020)
+
+# Remove columns 15 to 20
+
+humpback_data_2020 <- dplyr::select(humpback_data_2020, -c(14:19))
+
+#select only 2020 data from this code
+humpback_data_2020 <- humpback_data_2020 %>%
+  filter(year == 2020, month %in% c(1, 2, 3, 11, 12))
+
+#remove duplicate rows based on all columns
+humpback_data_2020 <- humpback_data_2020 %>%
+  distinct()
+
+```
+
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2020)
+class(humpback_data_2020)
+```
+
+##converting data frame to spatial object
+
+```{r}
+
+library(mapview)
+library(leafpop)
+
+humpback_data_2020 <- st_as_sf(humpback_data_2020, coords = c("Longitude", "Latitude"), crs = 4326)
+
+class(humpback_data_2020)
+
+names(humpback_data_2020)
+```
+
+##plot
+
+```{r}
+ggplot() + geom_sf(data=humpback_data_2020)
+```
+
+```{r}
+
+whale_2020 <- ggplot() + 
+  annotation_map_tile(type = "hotstyle", progress = "none") + 
+  geom_sf(data = humpback_data_2020, color = "darkred", size = 2, show.legend = FALSE) + 
+  labs(title = "Humpback Whale Sightings 2020") +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) +
+  coord_sf(xlim = c(-18237508, 18237508), ylim = c(-17037508, 94688))  # Set global coordinate limits
+
+
+plot(whale_2020)
+```
+
+##save image
+
+```{r}
+ggsave("whale_2020_plot.png", plot = whale_2020, width = 8, height = 4, dpi = 300)
+```
+
+
+#2021
+
+##Reading and tidying data
+
+```{r}
+humpback_data_2021 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+
+#Create a data frame
+humpback_data_2021 <- as.data.frame(humpback_data_2021)
+
+library(dplyr)
+
+# Remove columns 14 to 20
+
+humpback_data_2021 <- dplyr::select(humpback_data_2021, -c(14:19))
+
+#select only 2020 data from this code
+humpback_data_2021 <- humpback_data_2021 %>%
+  filter(year == 2021, month %in% c(1, 2, 3, 11, 12))
+
+#remove duplicate rows based on all columns
+humpback_data_2021 <- humpback_data_2021 %>%
+  distinct()
+
+```
+
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2021)
+class(humpback_data_2021)
+```
+
+##converting data frame to spatial object
+
+```{r}
+
+library(mapview)
+library(leafpop)
+
+humpback_data_2021 <- st_as_sf(humpback_data_2021, coords = c("Longitude", "Latitude"), crs = 4326)
+
+class(humpback_data_2021)
+
+names(humpback_data_2021)
+```
+
+##plot
+
+```{r}
+ggplot() + geom_sf(data=humpback_data_2021)
+```
+
+```{r}
+
+whale_2021 <- ggplot() + 
+  annotation_map_tile(type = "hotstyle", progress = "none") + 
+  geom_sf(data = humpback_data_2021, color = "red", size = 2, show.legend = FALSE) + 
+  labs(title = "Humpback Whale Sightings 2021") +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) +
+  coord_sf(xlim = c(-18237508, 18237508), ylim = c(-17037508, 94688)) +
+  coord_sf(xlim = c(-18237508, 18237508), ylim = c(-17037508, 94688))  # Set global coordinate limits
+
+plot(whale_2021)
+```
+
+##save image
+
+```{r}
+ggsave("whale_2021_plot.png", plot = whale_2021, width = 8, height = 4, dpi = 300)
+```
+
+
+#2022
+
+##Reading and tidying the data
+
+```{r}
+humpback_data_2022 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+
+#Create a data frame
+humpback_data_2022 <- as.data.frame(humpback_data_2022)
+
+library(dplyr)
+
+# Remove columns 14 to 20
+
+humpback_data_2022 <- dplyr::select(humpback_data_2022, -c(14:19))
+
+#select only 2020 data from this code
+humpback_data_2022 <- humpback_data_2022 %>%
+  filter(year == 2022, month %in% c(1, 2, 3, 11, 12))
+
+#remove duplicate rows based on all columns
+humpback_data_2022 <- humpback_data_2022 %>%
+  distinct()
+
+```
+
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2022)
+class(humpback_data_2022)
+```
+
+##converting data frame to spatial object
+
+```{r}
+
+library(mapview)
+library(leafpop)
+
+humpback_data_2022 <- st_as_sf(humpback_data_2022, coords = c("Longitude", "Latitude"), crs = 4326)
+
+class(humpback_data_2022)
+
+names(humpback_data_2022)
+```
+
+##plot
+
+```{r}
+ggplot() + geom_sf(data=humpback_data_2022)
+```
+
+```{r}
+
+whale_2022 <- ggplot() + 
+  annotation_map_tile(type = "hotstyle", progress = "none") + 
+  geom_sf(data = humpback_data_2022, color = "purple", size = 2, show.legend = FALSE) + 
+  labs(title = "Humpback Whale Sightings 2020") +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) +
+  coord_sf(xlim = c(-18237508, 18237508), ylim = c(-17037508, 94688)) +
+  coord_sf(xlim = c(-18237508, 18237508), ylim = c(-17037508, 94688))  # Set global coordinate limits
+
+plot(whale_2022)
+
+```
+
+##save image
+
+```{r}
+ggsave("whale_2022_plot.png", plot = whale_2022, width = 8, height = 4, dpi = 300)
+```
+
+
+#2023
+
+##Reading and tidying the data
+
+```{r}
+humpback_data_2023 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+
+#Create a data frame
+humpback_data_2023 <- as.data.frame(humpback_data_2023)
+
+library(dplyr)
+
+# Remove columns 14 to 20
+
+humpback_data_2023 <- dplyr::select(humpback_data_2023, -c(14:19))
+
+#select only 2020 data from this code
+humpback_data_2023 <- humpback_data_2023 %>%
+  filter(year == 2023, month %in% c(1, 2, 3, 11, 12))
+
+#remove duplicate rows based on all columns
+humpback_data_2023 <- humpback_data_2023 %>%
+  distinct()
+
+```
+
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2023)
+class(humpback_data_2023)
+```
+
+##converting data frame to spatial object
+
+```{r}
+
+library(mapview)
+library(leafpop)
+
+humpback_data_2023 <- st_as_sf(humpback_data_2023, coords = c("Longitude", "Latitude"), crs = 4326)
+
+class(humpback_data_2023)
+
+names(humpback_data_2023)
+```
+
+##plot
+
+```{r}
+ggplot() + geom_sf(data=humpback_data_2023)
+
+```
+
+```{r}
+
+whale_2023 <- ggplot() + 
+  annotation_map_tile(type = "hotstyle", progress = "none") + 
+  geom_sf(data = humpback_data_2023, color = "violetred3", size = 2, show.legend = FALSE) + 
+  labs(title = "Humpback Whale Sightings 2023") +
+  theme(legend.position = "none",
+        plot.title = element_text(hjust = 0.5)) +
+  coord_sf(xlim = c(-18237508, 18237508), ylim = c(-17037508, 94688)) +
+  coord_sf(xlim = c(-18237508, 18237508), ylim = c(-17037508, 94688))  # Set global coordinate limits
+
+plot(whale_2023)
+
+```
+
+##save image
+
+```{r}
+ggsave("whale_2023_plot.png", plot = whale_2023, width = 8, height = 4, dpi = 300)
+```
+
+---
+#Interactive map 
+
+##Default openstreet map tiles
+
+```{r}
+
+leaflet() %>%
+  # Add default OpenStreetMap map tiles
+  addTiles(group = "Default") %>%  
+  # Add our points
+  addCircleMarkers(data = humpback_data_2020,
+                   group = "Humpback whales 2020",
+                   radius = 3, 
+                   color = "darkred") 
+
+```
+
+##Common sense checks with the data
+
+```{r}
+
+mapview(humpback_data_2020, 
+        popup =  popupTable(humpback_data_2020,
+            zcol = c("geometry", "ID")))
+
+```
+
+##Adding all data points to the map
+
+```{r}
+library(dplyr)
+
+humpback_sightings <- bind_rows(humpback_data_2020, humpback_data_2021, humpback_data_2022, humpback_data_2023)
+
+```
+
+class(humpback_data_all)
+
+```{r}
+
+humpback_sightings$year <- as.factor(humpback_sightings$year)
+
+int.map <- mapview(humpback_sightings, 
+        zcol = "year",
+        popup =  popupTable(humpback_sightings,
+            zcol = c("geometry", "year")))
+
+int.map
+
+```
+
+##save interactive map
+```{r}
+
+mapshot(int.map, file = "Humpback_whale_int.map.jpeg")
+
+```
