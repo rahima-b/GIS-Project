@@ -3,6 +3,7 @@ title: "Plotting and Interactive map"
 author: "Rahima Baboo"
 format: html
 editor: source
+output: rmarkdown::github_document
 ---
 
 Clear my workspace
