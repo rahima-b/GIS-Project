@@ -70,13 +70,6 @@ humpback_data_2020 <- humpback_data_2020 %>%
 
 ```
 
-##Checking crs
-
-```{r}
-st_crs(humpback_data_2020)
-class(humpback_data_2020)
-```
-
 ##converting data frame to spatial object
 
 ```{r}
@@ -89,6 +82,12 @@ humpback_data_2020 <- st_as_sf(humpback_data_2020, coords = c("Longitude", "Lati
 class(humpback_data_2020)
 
 names(humpback_data_2020)
+```
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2020)
+class(humpback_data_2020)
 ```
 
 ##plot
