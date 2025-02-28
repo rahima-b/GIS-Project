@@ -20,7 +20,7 @@ getwd()
 ```{r}
 install.packages(c("tidyverse", "sf", "lwgeom", "terra", "stars", "exactextractr"))
 
-install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth", "mapview", "tmap"))
+install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth", "mapview", "tmap", "leafpop"))
 
 install.packages("prettymapr")
 install.packages("webshot")
@@ -37,11 +37,13 @@ library(tidyverse)
 library(sf)
 library(leaflet)
 library(dplyr)
-library(leaflet)
 library(htmltools)
 library(prettymapr)
 library(rosm)
 library(ggspatial)
+library(leafpop)
+library(mapview)
+library(webshot)
 
 ---
 
@@ -69,13 +71,6 @@ humpback_data_2020 <- humpback_data_2020 %>%
 
 ```
 
-##Checking crs
-
-```{r}
-st_crs(humpback_data_2020)
-class(humpback_data_2020)
-```
-
 ##converting data frame to spatial object
 
 ```{r}
@@ -89,6 +84,12 @@ class(humpback_data_2020)
 
 names(humpback_data_2020)
 ```
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2020)
+class(humpback_data_2020)
+```
 
 ##plot
 
@@ -100,7 +101,7 @@ ggplot() + geom_sf(data=humpback_data_2020)
 
 whale_2020 <- ggplot() + 
   annotation_map_tile(type = "hotstyle", progress = "none") + 
-  geom_sf(data = humpback_data_2020, color = "darkred", size = 2, show.legend = FALSE) + 
+  geom_sf(data = humpback_data_2020, color = "mediumorchid4", size = 2, show.legend = FALSE) + 
   labs(title = "Humpback Whale Sightings 2020") +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5)) +
@@ -143,13 +144,6 @@ humpback_data_2021 <- humpback_data_2021 %>%
 
 ```
 
-##Checking crs
-
-```{r}
-st_crs(humpback_data_2021)
-class(humpback_data_2021)
-```
-
 ##converting data frame to spatial object
 
 ```{r}
@@ -164,6 +158,13 @@ class(humpback_data_2021)
 names(humpback_data_2021)
 ```
 
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2021)
+class(humpback_data_2021)
+```
+
 ##plot
 
 ```{r}
@@ -174,7 +175,7 @@ ggplot() + geom_sf(data=humpback_data_2021)
 
 whale_2021 <- ggplot() + 
   annotation_map_tile(type = "hotstyle", progress = "none") + 
-  geom_sf(data = humpback_data_2021, color = "red", size = 2, show.legend = FALSE) + 
+  geom_sf(data = humpback_data_2021, color = "royalblue4", size = 2, show.legend = FALSE) + 
   labs(title = "Humpback Whale Sightings 2021") +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5)) +
@@ -217,13 +218,6 @@ humpback_data_2022 <- humpback_data_2022 %>%
 
 ```
 
-##Checking crs
-
-```{r}
-st_crs(humpback_data_2022)
-class(humpback_data_2022)
-```
-
 ##converting data frame to spatial object
 
 ```{r}
@@ -238,6 +232,13 @@ class(humpback_data_2022)
 names(humpback_data_2022)
 ```
 
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2022)
+class(humpback_data_2022)
+```
+
 ##plot
 
 ```{r}
@@ -248,8 +249,8 @@ ggplot() + geom_sf(data=humpback_data_2022)
 
 whale_2022 <- ggplot() + 
   annotation_map_tile(type = "hotstyle", progress = "none") + 
-  geom_sf(data = humpback_data_2022, color = "purple", size = 2, show.legend = FALSE) + 
-  labs(title = "Humpback Whale Sightings 2020") +
+  geom_sf(data = humpback_data_2022, color = "springgreen4", size = 2, show.legend = FALSE) + 
+  labs(title = "Humpback Whale Sightings 2022") +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5)) +
   coord_sf(xlim = c(-18237508, 18237508), ylim = c(-17037508, 94688)) +
@@ -292,13 +293,6 @@ humpback_data_2023 <- humpback_data_2023 %>%
 
 ```
 
-##Checking crs
-
-```{r}
-st_crs(humpback_data_2023)
-class(humpback_data_2023)
-```
-
 ##converting data frame to spatial object
 
 ```{r}
@@ -313,6 +307,13 @@ class(humpback_data_2023)
 names(humpback_data_2023)
 ```
 
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2023)
+class(humpback_data_2023)
+```
+
 ##plot
 
 ```{r}
@@ -324,7 +325,7 @@ ggplot() + geom_sf(data=humpback_data_2023)
 
 whale_2023 <- ggplot() + 
   annotation_map_tile(type = "hotstyle", progress = "none") + 
-  geom_sf(data = humpback_data_2023, color = "violetred3", size = 2, show.legend = FALSE) + 
+  geom_sf(data = humpback_data_2023, color = "yellow1", size = 2, show.legend = FALSE) + 
   labs(title = "Humpback Whale Sightings 2023") +
   theme(legend.position = "none",
         plot.title = element_text(hjust = 0.5)) +

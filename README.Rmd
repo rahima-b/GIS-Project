@@ -143,13 +143,6 @@ humpback_data_2021 <- humpback_data_2021 %>%
 
 ```
 
-##Checking crs
-
-```{r}
-st_crs(humpback_data_2021)
-class(humpback_data_2021)
-```
-
 ##converting data frame to spatial object
 
 ```{r}
@@ -162,6 +155,13 @@ humpback_data_2021 <- st_as_sf(humpback_data_2021, coords = c("Longitude", "Lati
 class(humpback_data_2021)
 
 names(humpback_data_2021)
+```
+
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2021)
+class(humpback_data_2021)
 ```
 
 ##plot
@@ -217,13 +217,6 @@ humpback_data_2022 <- humpback_data_2022 %>%
 
 ```
 
-##Checking crs
-
-```{r}
-st_crs(humpback_data_2022)
-class(humpback_data_2022)
-```
-
 ##converting data frame to spatial object
 
 ```{r}
@@ -236,6 +229,13 @@ humpback_data_2022 <- st_as_sf(humpback_data_2022, coords = c("Longitude", "Lati
 class(humpback_data_2022)
 
 names(humpback_data_2022)
+```
+
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2022)
+class(humpback_data_2022)
 ```
 
 ##plot
@@ -292,13 +292,6 @@ humpback_data_2023 <- humpback_data_2023 %>%
 
 ```
 
-##Checking crs
-
-```{r}
-st_crs(humpback_data_2023)
-class(humpback_data_2023)
-```
-
 ##converting data frame to spatial object
 
 ```{r}
@@ -311,6 +304,13 @@ humpback_data_2023 <- st_as_sf(humpback_data_2023, coords = c("Longitude", "Lati
 class(humpback_data_2023)
 
 names(humpback_data_2023)
+```
+
+##Checking crs
+
+```{r}
+st_crs(humpback_data_2023)
+class(humpback_data_2023)
 ```
 
 ##plot
