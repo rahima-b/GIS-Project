@@ -28,6 +28,7 @@ library(leafpop)
 library(mapview)
 library(webshot)
 library(readr)
+library(rosm)
 ```
 ---
 

@@ -6,13 +6,17 @@ editor: source
 output: rmarkdown::github_document
 ---
 
-Clear my workspace
+```{r}
+
+#Clear my workspace
 
 rm(list=ls())
 
-Get working directory
+#Get working directory
 
 getwd()
+
+```
 
 ---
 #Installing packages for data visualisation
@@ -20,7 +24,7 @@ getwd()
 ```{r}
 install.packages(c("tidyverse", "sf", "terra"))
 
-install.packages(c("knitr", "leaflet", "ggspatial", "mapview", "leafpop"))
+install.packages(c("knitr", "leaflet", "ggspatial", "mapview", "leafpop", "rosm"))
 
 install.packages("prettymapr")
 install.packages("webshot")
@@ -43,6 +47,7 @@ library(leafpop)
 library(mapview)
 library(webshot)
 library(readr)
+library(rosm)
 
 ---
 
@@ -51,14 +56,10 @@ library(readr)
 ##Reading and tidying data
 
 ```{r}
-humpback_data_2020 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+humpback_data_2020 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data.csv", delim = ";") 
 
 #Create a data frame
 humpback_data_2020 <- as.data.frame(humpback_data_2020)
-
-# Remove columns 15 to 20
-
-humpback_data_2020 <- dplyr::select(humpback_data_2020, -c(14:19))
 
 #select only 2020 data from this code
 humpback_data_2020 <- humpback_data_2020 %>%
@@ -83,6 +84,7 @@ class(humpback_data_2020)
 
 names(humpback_data_2020)
 ```
+
 ##Checking crs
 
 ```{r}
@@ -122,16 +124,10 @@ ggsave("whale_2020_plot.png", plot = whale_2020, width = 8, height = 4, dpi = 30
 ##Reading and tidying data
 
 ```{r}
-humpback_data_2021 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+humpback_data_2021 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data.csv", delim = ";") 
 
 #Create a data frame
 humpback_data_2021 <- as.data.frame(humpback_data_2021)
-
-library(dplyr)
-
-# Remove columns 14 to 20
-
-humpback_data_2021 <- dplyr::select(humpback_data_2021, -c(14:19))
 
 #select only 2020 data from this code
 humpback_data_2021 <- humpback_data_2021 %>%
@@ -196,16 +192,10 @@ ggsave("whale_2021_plot.png", plot = whale_2021, width = 8, height = 4, dpi = 30
 ##Reading and tidying the data
 
 ```{r}
-humpback_data_2022 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+humpback_data_2022 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data.csv", delim = ";") 
 
 #Create a data frame
 humpback_data_2022 <- as.data.frame(humpback_data_2022)
-
-library(dplyr)
-
-# Remove columns 14 to 20
-
-humpback_data_2022 <- dplyr::select(humpback_data_2022, -c(14:19))
 
 #select only 2020 data from this code
 humpback_data_2022 <- humpback_data_2022 %>%
@@ -271,16 +261,10 @@ ggsave("whale_2022_plot.png", plot = whale_2022, width = 8, height = 4, dpi = 30
 ##Reading and tidying the data
 
 ```{r}
-humpback_data_2023 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data/Humpback data.csv", delim = ";") 
+humpback_data_2023 <- read_delim("C:/Users/Rahima/OneDrive - University of Cape Town/Documents/Rahima postgrad/GIT repos/GIS-Project/Humpback data.csv", delim = ";") 
 
 #Create a data frame
 humpback_data_2023 <- as.data.frame(humpback_data_2023)
-
-library(dplyr)
-
-# Remove columns 14 to 20
-
-humpback_data_2023 <- dplyr::select(humpback_data_2023, -c(14:19))
 
 #select only 2020 data from this code
 humpback_data_2023 <- humpback_data_2023 %>%
