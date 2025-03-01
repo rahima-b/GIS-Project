@@ -4,46 +4,31 @@ author: "Rahima Baboo"
 date: "2025-02-27"
 output: rmarkdown::github_document
 ---
+```{r}
 
-Clear my workspace
+#Clear my workspace
 
 rm(list=ls())
 
-Get working directory
+#Get working directory
 
 getwd()
 
----
-#Installing packages for data visualisation
-
-```{r}
-install.packages(c("tidyverse", "sf", "lwgeom", "terra", "stars", "exactextractr"))
-
-install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth", "mapview", "tmap", "leafpop"))
-
-install.packages("prettymapr")
-install.packages("webshot")
-
-webshot::install_phantomjs()
-
 ```
-
 ---
-
-# Calling libraries
+```{r setup, include=FALSE}
 
 library(tidyverse)
 library(sf)
 library(leaflet)
 library(dplyr)
-library(htmltools)
 library(prettymapr)
-library(rosm)
 library(ggspatial)
 library(leafpop)
 library(mapview)
 library(webshot)
-
+library(readr)
+```
 ---
 
 #2020
