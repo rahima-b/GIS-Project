@@ -1,0 +1,16 @@
+#Installing packages for data visualisation
+
+install.packages(c("tidyverse", "sf", "terra", "knitr", "leaflet", "ggspatial", "mapview", "leafpop", "prettymapr", "webshot"))
+webshot::install_phantomjs()
+
+# Calling libraries
+
+library(tidyverse)
+library(sf)
+library(leaflet)
+library(dplyr)
+library(prettymapr)
+library(ggspatial)
+library(leafpop)
+library(mapview)
+library(webshot)
