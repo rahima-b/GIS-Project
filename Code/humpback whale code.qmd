@@ -18,9 +18,9 @@ getwd()
 #Installing packages for data visualisation
 
 ```{r}
-install.packages(c("tidyverse", "sf", "lwgeom", "terra", "stars", "exactextractr"))
+install.packages(c("tidyverse", "sf", "terra"))
 
-install.packages(c("cowplot", "hrbrthemes", "knitr", "leaflet", "htmltools", "rosm", "ggspatial", "rnaturalearth", "mapview", "tmap", "leafpop"))
+install.packages(c("knitr", "leaflet", "ggspatial", "mapview", "leafpop"))
 
 install.packages("prettymapr")
 install.packages("webshot")
@@ -37,9 +37,7 @@ library(tidyverse)
 library(sf)
 library(leaflet)
 library(dplyr)
-library(htmltools)
 library(prettymapr)
-library(rosm)
 library(ggspatial)
 library(leafpop)
 library(mapview)
