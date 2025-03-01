@@ -2,7 +2,7 @@
 title: "Plotting maps"
 author: "Rahima Baboo"
 date: "2025-02-27"
-output: rmarkdown::github_document
+output: rmarkdown::html_document
 ---
 ```{r}
 
